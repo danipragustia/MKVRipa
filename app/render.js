@@ -8,8 +8,10 @@ function traverseFileTree(item, path) {
   if (item.isFile) {
     // Get file
     item.file(function(file) {
-      target_file.push(path + file.name);
-	  $("#table-files").append('<tr><td>' + path + file.name + '</td></tr>');
+	  if (file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase() == 'mkv') {
+		target_file.push(file.path);
+		$("#table-files").append('<tr><td>' + file.name + '</td></tr>');
+	  }
     });
   } else if (item.isDirectory) {
     // Get folder contents
@@ -31,8 +33,19 @@ $("#crf-range").on("input change", function() {
 	$("#label-crf").text(this.value);
 });
 
+$("#btnClean").click(function() {
+	target_file = [];
+	$("#table-files").html('');
+});
+
+
 $("#btnRender").click(function() {
-  console.log('Hello');
+	ipcRenderer.send('setvideocodec', $("#video-select").val());
+	ipcRenderer.send('setaudiocodec', $("#audio-select").val());
+	ipcRenderer.send('setpresent', $("#present-select").val());
+	ipcRenderer.send('setprefix', $("#prefix-input").val());
+	ipcRenderer.send('setcrf', $("#crf-range").val());
+	ipcRenderer.send('ondragstart', target_file);
 });
 
 $(document).on('dragenter', function (e) {

@@ -15,28 +15,6 @@ if (os.platform().substring(0,3) == 'win') {
     ffmpegloc = ffmpegloc + '.exe'
 }
 
-var getDirectories = (src, callback) => {
-  glob(src + '/input/**/*.mkv', callback);
-};
-
-
-function main() {
-getDirectories(process.cwd(), (err, res) => {
-  console.log(process.cwd())
-  if (err) {
-    console.log('Error', err)
-  } else {
-	current = 0
-	if (res.length > 0) {
-		last = res.length
-		processVideo(res)
-	} else {
-		console.log('There no videos on input folder.')
-		process.exit()
-	}
-  }
-});
-
 }
 
 function check_folder(fpath) {
