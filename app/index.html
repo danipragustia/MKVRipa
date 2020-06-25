@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="app.css">
+	
+    <title>MKVRipa Desktop</title>
+  </head>
+  <body>
+    <div class="container-fluid mt-3 mb-3">
+	
+		<div class="row">
+		
+			<div class="col-lg-12">
+			
+				<div class="form-group input-group mb-3 p-5" id="drag-drop">
+					<center><p>Drop your folder(s) here</p></center>
+				</div>
+			
+			</div>
+		
+			<div class="col-md-6">
+				
+				<div class="form-group">
+				  <label class="font-weight-bold" for="crf-range">Video Codec  :</label>
+					<select class="custom-select" id="video-select">
+					  <option value="x264" selected>x264</option>
+					  <option value="x265">x265</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+				  <label class="font-weight-bold" for="crf-range">Audio Codec  :</label>
+					<select class="custom-select" id="audio-select">
+					  <option value="opus" selected>opus</option>
+					  <option value="mp3lame">mp3lame</option>
+					</select>
+				</div>
+		
+			</div>
+			
+			<div class="col-md-6">
+				
+				<div class="form-group">
+				  <label class="font-weight-bold" for="crf-range">Presents  :</label>
+					<select class="custom-select" id="present-select">
+					  <option value="ultrafast" selected>Ultra Fast</option>
+					  <option value="superfast">Super Fast</option>
+					  <option value="veryfast">Very Fast</option>
+					  <option value="faster">Faster</option>
+					  <option value="fast">Fast</option>
+					  <option value="medium">Medium</option>
+					  <option value="slow">Slow</option>
+					  <option value="slower">Slower</option>
+					  <option value="veryslow">Very Slow</option>
+					  <option value="placebo">Placebo</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+				  <label class="font-weight-bold" for="crf-range">Prefix  :</label>
+				  <input type="text" class="form-control" id="prefix-input" value="-uwu">
+				</div>
+			
+			</div>
+			
+			<div class="col-md-12">
+			
+				<div class="form-group">
+				  <label class="font-weight-bold" for="crf-range">CRF (Constant Rate Factor)  :</label>
+				  <input type="range" min="0" max="51" value="51" class="form-control-range" id="crf-range">
+				  <p class="text-center" id="label-crf">51</p>
+				</div>
+
+			</div>
+		
+		</div>
+		
+		<button class="btn btn-block btn-primary" id="btnRender">Render</button>
+		<button class="btn btn-block btn-danger" id="btnClean">Clear quene</button>
+		
+		<hr>
+		
+		<label for="table-files">Quene Items : </label>
+		<table class="table table-bordered table-hovered" id="table-files">
+		</table>
+		
+		<script src="render.js"></script>
+		
+  </body>
+</html>

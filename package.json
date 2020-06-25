@@ -2,14 +2,16 @@
   "name": "mkvripa",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dani Pragustia",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.6"
+    "electron": "^9.0.5",
+    "glob": "^7.1.6",
+    "jquery": "^3.5.1"
   }
 }
