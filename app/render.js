@@ -1,13 +1,15 @@
 const {ipcRenderer} = require('electron')
 
 var $ = require('jquery');
+var target_file = [];
 
 function traverseFileTree(item, path) {
   path = path || "";
   if (item.isFile) {
     // Get file
     item.file(function(file) {
-      console.log("File:", path + file.name);
+      target_file.push(path + file.name);
+	  $("#table-files").append('<tr><td>' + path + file.name + '</td></tr>');
     });
   } else if (item.isDirectory) {
     // Get folder contents
@@ -25,7 +27,8 @@ $(function() {
 var obj = $("#drag-drop");
 	
 $("#crf-range").on("input change", function() {
-	$("#label-crf").html($(this).value);
+	this.setAttribute('value',this.value);
+	$("#label-crf").text(this.value);
 });
 
 $("#btnRender").click(function() {

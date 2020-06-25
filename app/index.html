@@ -10,15 +10,10 @@
     <title>Remtangan</title>
   </head>
   <body>
-    <div class="container mt-3 mb-3">
+    <div class="container-fluid mt-3 mb-3">
 	
-	  
-	    <label for="label-input-folder">Input Files :</label>
-		
-		<div class="form-group input-group mb-3" id="drag-drop">
-			<div style="padding:20px;">
-				<p>Drop your folder(s) here</p>
-			</div>
+		<div class="form-group input-group mb-3 p-5" id="drag-drop">
+			<center><p>Drop your folder(s) here</p></center>
 		</div>
 		
 		<div class="form-group">
@@ -44,6 +39,12 @@
 		</div>
 		
 		<button class="btn btn-block btn-primary" id="btnRender">Render</button>
+		
+		<hr>
+		
+		<label for="table-files">Quene Items : </label>
+		<table class="table table-bordered table-hovered" id="table-files">
+		</table>
 		
 		<script src="render.js"></script>
 		
