@@ -36,7 +36,7 @@ async function processVideo(array) {
 		check_folder(escaped_path_output.slice(0, -1))
 		tempy = tempy + ffmpegloc + ' -crf ' + config.crf + ' -preset ' + config.present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + item.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + config.audioCodec + ' -vcodec lib' + config.videoCodec + ' "' + escaped_path_output + path.basename(item,path.extname(item)) + config.prefix + '.mp4' + '"' + EOL
 	}
-	fs.writeFile('batch.bat', tempy, (err) => {
+	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;
 		console.log('Batch File Created!');
 	})
