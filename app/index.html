@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="app.css">
+	
+    <title>Remtangan</title>
+  </head>
+  <body>
+    <div class="container mt-3 mb-3">
+	
+	  
+	    <label for="label-input-folder">Input Files :</label>
+		
+		<div class="form-group input-group mb-3" id="drag-drop">
+			<div style="padding:20px;">
+				<p>Drop your folder(s) here</p>
+			</div>
+		</div>
+		
+		<div class="form-group">
+		  <label class="font-weight-bold" for="crf-range">CRF (Constant Rate Factor)  :</label>
+		  <input type="range" min="0" max="51" value="51" class="form-control-range" id="crf-range">
+		  <p class="text-center" id="label-crf">51</p>
+		</div>
+		
+		<div class="form-group">
+		  <label class="font-weight-bold" for="crf-range">Presents  :</label>
+		    <select class="custom-select" id="present-select">
+			  <option value="ultrafast" selected>Ultra Fast</option>
+			  <option value="superfast">Super Fast</option>
+			  <option value="veryfast">Very Fast</option>
+			  <option value="faster">Faster</option>
+			  <option value="fast">Fast</option>
+			  <option value="medium">Medium</option>
+			  <option value="slow">Slow</option>
+			  <option value="slower">Slower</option>
+			  <option value="veryslow">Very Slow</option>
+			  <option value="placebo">Placebo</option>
+			</select>
+		</div>
+		
+		<button class="btn btn-block btn-primary" id="btnRender">Render</button>
+		
+		<script src="render.js"></script>
+		
+  </body>
+</html>
