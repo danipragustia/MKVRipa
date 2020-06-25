@@ -14,13 +14,13 @@ Batch script is have some limitation, so for making this extensible. I making th
 - [x] GUI Application (electron-based)
 
 ## How to use?
-Simply start `app.exe`
+Simply start `mkvripa.exe`
 
 ## Build from source
-Make sure package pkg was installed, if not you can run command `npm i -g pkg` to install it.
+Make sure package electron-packager was installed, if not you can run command `npm i -g electron-packager` to install it.
 
-Compile from node12 is recommended
-`pkg app.js --targets node12-win-x64`
+1. Compile program `electron-packager .`
+2. Donwnload [FFMPEG](https://ffmpeg.zeranoe.com/builds/) and copy it on compiled program directory `bin` folder (case-sensitive).
 
 ## License
 MIT
