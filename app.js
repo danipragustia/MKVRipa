@@ -14,9 +14,9 @@ let path_config = path.join(process.cwd(), 'config.json')
 //let config = require(path_config)
 let vcodec = "x264"
 let acodec = "opus"
-let prefix = "-uwu"
+let prefix = "-mkvripa"
 let present = "ultrafast"
-let crf = "51"
+let crf = "23"
 
 
 let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
