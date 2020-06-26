@@ -80,11 +80,11 @@ async function processVideo(array) {
 		output_escaped = item.slice(0, item.length - path.basename(item).length) + output_escaped.split(path.extname(output_escaped)).join('')
 		//console.log('DEBUG : ' + item)
 		//console.log('DEBUG : ' + output_escaped)
-		tempy = tempy + ffmpegloc + ' -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + output_escaped + prefix + '.mp4' + '"' + EOL
+		tempy = tempy '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + output_escaped + prefix + '.mp4' + '"' + EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;
-		const subprocess = child_process.spawn('batch.bat',[], {
+		const subprocess = child_process.spawn(path.join(process.cwd(), 'batch.bat'),[], {
 			detached: true
 		});
 		subprocess.unref();
