@@ -14,9 +14,9 @@ let path_config = path.join(process.cwd(), 'config.json')
 //let config = require(path_config)
 let vcodec = "x264"
 let acodec = "opus"
-let prefix = "-uwu"
+let prefix = "-mkvripa"
 let present = "ultrafast"
-let crf = "51"
+let crf = "23"
 
 
 let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
@@ -28,7 +28,7 @@ let win
 
 function createWindow() {
 	win = new BrowserWindow({
-		width: 540,
+		width: 920,
 		height: 800,
 		webPreferences: {
 			nodeIntegration: true
@@ -42,6 +42,7 @@ function createWindow() {
 
 app.on('ready', createWindow)
 
+// TODO : Make it efficient
 ipcMain.on('ondragstart',(event, filePath) => {
 	processVideo(filePath)
 })
@@ -66,7 +67,7 @@ ipcMain.on('setcrf',(event, res) => {
 	crf = res
 })
 
-
+// TODO : Find the way to get specific directory tree from input and making folder on it in output directory
 async function processVideo(array) {
 	for (const item of array) {
 		// First Approach
@@ -81,7 +82,7 @@ async function processVideo(array) {
 		//console.log('DEBUG : ' + output_escaped)
 		tempy = tempy + ffmpegloc + ' -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + output_escaped + prefix + '.mp4' + '"' + EOL
 	}
-	fs.writeFile('batch.bat', tempy, (err) => {
+	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;
 		const subprocess = child_process.spawn('batch.bat',[], {
 			detached: true
