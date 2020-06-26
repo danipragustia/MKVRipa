@@ -2,6 +2,10 @@
 	margin-bottom:10px !important;
 }
 
+#drag-drop {
+	background-color:#ededed;
+}
+
 .drag-over {
-	border: 2px dotted #0B85A1;
+	border: 3px dotted #b5b5b5;
 }
