@@ -10,8 +10,8 @@ Silly-way to batch hardsub video for MKV Video Container on Windows.
 Batch script is have some limitation, so for making this extensible. I making this program for convience way to me and other people for using it.
 
 ## To-do
-- [x] Drag and Drop functionality
-- [x] GUI Application (electron-based)
+- [ ] Progress status
+- [ ] Watermark support
 
 ## How to use?
 Simply start `mkvripa.exe`
