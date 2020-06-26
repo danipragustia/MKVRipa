@@ -5,3 +5,14 @@
 .drag-over {
 	border: 2px dotted #0B85A1;
 }
+
+span:hover span {
+	transition:0.3s;
+	display:inline;
+}
+
+span span {
+	transition:0.3s;
+	display:none;
+	
+}

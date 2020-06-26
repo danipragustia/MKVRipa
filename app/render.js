@@ -10,7 +10,8 @@ function traverseFileTree(item, path) {
     item.file(function(file) {
 	  if (file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase() == 'mkv') {
 		target_file.push(file.path);
-		$("#table-files").append('<tr><td>' + file.name + '</td></tr>');
+		//$("#table-files").append('<tr id="item' + (target_file.length - 1) + '"><td><button class="btn btn-danger btn-sm" onclick="removeItem(' + (target_file.length - 1) + ')">Remove</button> <span class="file-name">' + file.name + '<span> ' + file.path + '</span></span></td></tr>');
+		$("#table-files").append('<tr id="item' + (target_file.length - 1) + '"><td><div class="input-group"><div class="input-group-prepend"><button class="btn btn-danger btn-sm" type="button" onclick="removeItem(' + (target_file.length - 1) + ')">Remove</button></div><input type="text" class="form-control" value="' + file.name + '" disabled></div></td></tr>');
 	  }
     });
   } else if (item.isDirectory) {
@@ -22,6 +23,13 @@ function traverseFileTree(item, path) {
       }
     });
   }
+}
+
+function removeItem(i) {
+	target_file.splice(i, 1)
+	$("#item" + i).hide('fast', function(){
+		$("#item" + i).remove()
+	})
 }
 
 $(function() {
