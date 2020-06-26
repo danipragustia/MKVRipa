@@ -14,9 +14,9 @@ let path_config = path.join(process.cwd(), 'config.json')
 //let config = require(path_config)
 let vcodec = "x264"
 let acodec = "opus"
-let prefix = "-mkvripa"
+let prefix = "-uwu"
 let present = "ultrafast"
-let crf = "23"
+let crf = "51"
 
 
 let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
@@ -28,7 +28,7 @@ let win
 
 function createWindow() {
 	win = new BrowserWindow({
-		width: 920,
+		width: 540,
 		height: 800,
 		webPreferences: {
 			nodeIntegration: true
@@ -79,7 +79,7 @@ async function processVideo(array) {
 		output_escaped = item.slice(0, item.length - path.basename(item).length) + output_escaped.split(path.extname(output_escaped)).join('')
 		//console.log('DEBUG : ' + item)
 		//console.log('DEBUG : ' + output_escaped)
-		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + output_escaped + prefix + '.mp4' + '"' + EOL
+		tempy = tempy + ffmpegloc + ' -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + output_escaped + prefix + '.mp4' + '"' + EOL
 	}
 	fs.writeFile('batch.bat', tempy, (err) => {
 		if (err) throw err;
