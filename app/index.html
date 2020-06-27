@@ -32,7 +32,7 @@
 			<div class="col-md-6">
 				
 				<div class="form-group">
-				  <label class="font-weight-bold" for="crf-range">Video Codec  :</label>
+				  <label class="font-weight-bold" for="crf-range">Video Codec :</label>
 					<select class="custom-select" id="video-select">
 					  <option value="x264" selected>x264</option>
 					  <option value="x265">x265</option>
@@ -40,7 +40,7 @@
 				</div>
 				
 				<div class="form-group">
-				  <label class="font-weight-bold" for="crf-range">Audio Codec  :</label>
+				  <label class="font-weight-bold" for="crf-range">Audio Codec :</label>
 					<select class="custom-select" id="audio-select">
 					  <option value="opus" selected>opus</option>
 					  <option value="mp3lame">mp3lame</option>
@@ -52,7 +52,7 @@
 			<div class="col-md-6">
 				
 				<div class="form-group">
-				  <label class="font-weight-bold" for="crf-range">Presents  :</label>
+				  <label class="font-weight-bold" for="crf-range">Presents :</label>
 					<select class="custom-select" id="present-select">
 					  <option value="ultrafast" selected>Ultra Fast</option>
 					  <option value="superfast">Super Fast</option>
@@ -91,6 +91,20 @@
 				</div>
 				
 
+			</div>
+			
+			<div class="col-md-12 mb-3">
+			
+				<label class="font-weight-bold" for="crf-range">Output :</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="output-folder" disabled>
+					<div class="input-group-prepend">
+						<label class="btn btn-primary">
+							<input type="file" id="output-select" webkitdirectory hidden>Browse</button>
+						</label>
+					</div>
+				</div>
+				
 			</div>
 		
 		</div>
