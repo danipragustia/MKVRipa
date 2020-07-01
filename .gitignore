@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
+mkvripa-win32-x64
 
 *.swp
 

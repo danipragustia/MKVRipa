@@ -7,25 +7,22 @@ const {app,BrowserWindow,ipcMain,dialog} = require('electron')
 const { EOL } = os
 
 let tempy = ''
+let win
 
-let path_config = path.join(process.cwd(), 'config.json')
+let output_folder = path.join(process.cwd(), 'output')
+let config_path = path.join(process.cwd(), 'config.json')
 
-//let config = require(path_config)
 let debug = false
 let vcodec = "x264"
 let acodec = "opus"
 let prefix = "-mkvripa"
 let present = "ultrafast"
 let crf = "23"
-let output_folder = path.join(process.cwd(), 'output')
-
 
 let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
 if (os.platform().substring(0,3) == 'win') {
     ffmpegloc = ffmpegloc + '.exe'
 }
-
-let win
 
 function createWindow() {
 	win = new BrowserWindow({
@@ -49,7 +46,7 @@ function check_folder(fpath) {
 		console.log('[+] Target output : ' + fpath)
 	} else {
 		console.log('[+] Making folder : ' + fpath)
-		fs.mkdirSync(fpath, { recursive: true });
+		fs.mkdirSync(fpath, { recursive: true })
 	}
 }
 
@@ -76,7 +73,7 @@ async function processVideo(array) {
 			console.log('DEBUG : ' + output_escaped)
 			console.log('Output Folder : ' + output_folder)
 		}
-		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-acodec lib' + acodec + ' -vcodec lib' + vcodec + ' "' + outputloc + '"' + EOL
+		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' "' + outputloc + '"' + EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;

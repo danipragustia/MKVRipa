@@ -1,7 +1,8 @@
 {
+	"debug": true,
     "present": "ultrafast",
-    "crf": "23",
-	"audioCodec": "opus",
-	"videoCodec": "x265",
-	"prefix": "-uwu"
+    "crf": "40",
+	"acodec": "mp3lame",
+	"vcodec": "x265",
+	"prefix": "-mkvripa"
 }
