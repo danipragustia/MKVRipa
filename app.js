@@ -24,6 +24,18 @@ if (os.platform().substring(0,3) == 'win') {
     ffmpegloc = ffmpegloc + '.exe'
 }
 
+function saveConfig() {
+	let config_array = [{
+		'debug': debug,
+		'vcodec': vcodec,
+		'acodec': acodec,
+		'prefix': prefix,
+		'present': present,
+		'crf': crf
+	}]
+	fs.writeFileSync(config_path, JSON.stringify(config_array).split('[').join('').split(']').join(''));
+}
+
 function createWindow() {
 	win = new BrowserWindow({
 		width: 920,
@@ -61,6 +73,7 @@ ipcMain.on('setcrf',(event, res) => crf = res)
 ipcMain.on('setoutput',(event, res) => output_folder = res)
 
 async function processVideo(array) {
+	saveConfig()
 	for (const item of array) {
 		let escaped_path_output = item[1].split('\\').join('/')
 		let output_escaped = path.basename(escaped_path_output)

@@ -1,8 +1,0 @@
-{
-	"debug": true,
-    "present": "ultrafast",
-    "crf": "40",
-	"acodec": "mp3lame",
-	"vcodec": "x265",
-	"prefix": "-mkvripa"
-}
