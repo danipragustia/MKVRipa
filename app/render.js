@@ -2,8 +2,6 @@ const {ipcRenderer} = require('electron')
 const path = require('path')
 const fs = require('fs')
 
-
-var $ = require('jquery')
 var target_file = []
 
 if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
