@@ -10,6 +10,7 @@ if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
 	$("#audio-select").val(config.acodec)
 	$("#prefix-input").val(config.prefix)
 	$("#present-select").val(config.present)
+	$("#threads-input").val(config.threads)
 	document.getElementById("crf-range").setAttribute('value', config.crf)
 	$("#label-crf").text(config.crf)
 }
@@ -85,6 +86,7 @@ $("#btnRender").click(function() {
 	ipcRenderer.send('setpresent', $("#present-select").val())
 	ipcRenderer.send('setprefix', $("#prefix-input").val())
 	ipcRenderer.send('setcrf', $("#crf-range").val())
+	ipcRenderer.send('setthreads', $("#threads-input").val())
 	ipcRenderer.send('ondragstart', target_file)
 })
 

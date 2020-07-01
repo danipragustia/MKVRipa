@@ -19,6 +19,7 @@ let acodec = "opus"
 let prefix = "-mkvripa"
 let present = "ultrafast"
 let crf = "23"
+let threads = "auto"
 
 let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
 if (os.platform().substring(0,3) == 'win') {
@@ -32,7 +33,8 @@ function saveConfig() {
 		'acodec': acodec,
 		'prefix': prefix,
 		'present': present,
-		'crf': crf
+		'crf': crf,
+		'threads': threads
 	}]
 	fs.writeFileSync(config_path, JSON.stringify(config_array).split('[').join('').split(']').join(''));
 }
@@ -88,7 +90,7 @@ async function processVideo(array) {
 			console.log('DEBUG : ' + output_escaped)
 			console.log('Output Folder : ' + output_folder)
 		}
-		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '" ' + (custominput !== '' && custominput) + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' "' + outputloc + '"' + EOL
+		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '" ' + (custominput !== '' ?custominput : '') + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' -threads ' + threads + ' "' + outputloc + '"' + EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;
