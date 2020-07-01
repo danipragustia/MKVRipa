@@ -81,6 +81,7 @@ $("#btnClean").click(function() {
 $("#btnRender").click(function() {
 	$("#btnRender").prop("disabled",true);
 	$("#btnClean").prop("disabled",true);
+	ipcRenderer.send('setcustominput', $("#custom-input").val())
 	ipcRenderer.send('setvideocodec', $("#video-select").val())
 	ipcRenderer.send('setaudiocodec', $("#audio-select").val())
 	ipcRenderer.send('setpresent', $("#present-select").val())

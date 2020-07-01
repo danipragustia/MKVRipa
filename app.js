@@ -7,6 +7,7 @@ const {app,BrowserWindow,ipcMain,dialog} = require('electron')
 const { EOL } = os
 
 let tempy = ''
+let custominput = ''
 let win
 
 let output_folder = path.join(process.cwd(), 'output')
@@ -65,6 +66,7 @@ function check_folder(fpath) {
 app.on('ready', createWindow)
 
 ipcMain.on('ondragstart',(event, res) => processVideo(res))
+ipcMain.on('setcustominput',(event, res) => custominput = res)
 ipcMain.on('setvideocodec',(event, res) => vcodec = res)
 ipcMain.on('setaudiocodec',(event, res) => acodec = res)
 ipcMain.on('setprefix',(event, res) => prefix = res)
@@ -86,7 +88,7 @@ async function processVideo(array) {
 			console.log('DEBUG : ' + output_escaped)
 			console.log('Output Folder : ' + output_folder)
 		}
-		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '"' + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' "' + outputloc + '"' + EOL
+		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '" ' + (custominput !== '' && custominput) + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' "' + outputloc + '"' + EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		if (err) throw err;
