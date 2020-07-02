@@ -1,7 +1,19 @@
 const {ipcRenderer} = require('electron')
+const path = require('path')
+const fs = require('fs')
 
-var $ = require('jquery')
 var target_file = []
+
+if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
+	let config = require(path.join(process.cwd(), 'config.json'))
+	$("#video-select").val(config.vcodec)
+	$("#audio-select").val(config.acodec)
+	$("#prefix-input").val(config.prefix)
+	$("#present-select").val(config.present)
+	$("#threads-input").val(config.threads)
+	document.getElementById("crf-range").setAttribute('value', config.crf)
+	$("#label-crf").text(config.crf)
+}
 
 function traverseFileTree(item, path) {
   path = path || ""
@@ -22,7 +34,8 @@ function traverseFileTree(item, path) {
 }
 
 function addItem(fname, fpath) {
-	target_file.push(fpath)
+	var temp_path = fpath.replace(fpath.substr(0,fpath.indexOf('\\',fpath.length - fpath.lastIndexOf('\\'))),'').replace(fname,'')
+	target_file.push([ temp_path, fpath, fname ])
 	$("#table-files").append('<tr id="item' + (target_file.length - 1) + '"><td><div class="input-group"><div class="input-group-prepend"><button class="btn btn-danger btn-sm" type="button" onclick="removeItem(' + (target_file.length - 1) + ')"><svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg></button></div><input type="text" class="form-control" value="' + fname + '" disabled></div></td></tr>')
 }
 
@@ -36,6 +49,7 @@ function removeItem(i) {
 $(function() {
 	
 var obj = $("#drag-drop");
+$('#output-folder').val(path.join(process.cwd(), 'output'))
 
 $("#folder-select").on("input change", function(e) {
 	var theFiles = e.target.files
@@ -51,6 +65,12 @@ $("#crf-range").on("input change", function() {
 	$("#label-crf").text(this.value)
 })
 
+$("#output-select").on("input change", function(e) {
+	var fpath = e.target.files[0].path
+	$('#output-folder').val(fpath.substr(0, fpath.lastIndexOf('\\')))
+	ipcRenderer.send('setoutput', fpath.substr(0, fpath.lastIndexOf('\\')))
+})
+
 $("#btnClean").click(function() {
 	target_file = []
 	$("#table-files").html('')
@@ -58,11 +78,15 @@ $("#btnClean").click(function() {
 
 
 $("#btnRender").click(function() {
+	$("#btnRender").prop("disabled",true);
+	$("#btnClean").prop("disabled",true);
+	ipcRenderer.send('setcustominput', $("#custom-input").val())
 	ipcRenderer.send('setvideocodec', $("#video-select").val())
 	ipcRenderer.send('setaudiocodec', $("#audio-select").val())
 	ipcRenderer.send('setpresent', $("#present-select").val())
 	ipcRenderer.send('setprefix', $("#prefix-input").val())
 	ipcRenderer.send('setcrf', $("#crf-range").val())
+	ipcRenderer.send('setthreads', $("#threads-input").val())
 	ipcRenderer.send('ondragstart', target_file)
 })
 
