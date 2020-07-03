@@ -51,7 +51,7 @@ $(function() {
 var obj = $("#drag-drop");
 $('#output-folder').val(path.join(process.cwd(), 'output'))
 
-$("#folder-select").on("input change", function(e) {
+$("#folder-select").on("input", function(e) {
 	var theFiles = e.target.files
 	for (var i=0; i<theFiles.length; i++) {
 		if (theFiles[i].name.substr(theFiles[i].name.lastIndexOf('.') + 1).toLowerCase() == 'mkv') {
@@ -60,7 +60,7 @@ $("#folder-select").on("input change", function(e) {
 	}
 })
 	
-$("#crf-range").on("input change", function() {
+$("#crf-range").on("change", function() {
 	this.setAttribute('value',this.value)
 	$("#label-crf").text(this.value)
 })
