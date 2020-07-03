@@ -4,27 +4,16 @@ const path = require('path')
 const child_process = require('child_process')
 
 const {app,BrowserWindow,ipcMain,dialog} = require('electron')
-const { EOL } = os
 
+let debug = (process.argv[2] == '--debug' ? true : false)
 let tempy = ''
-let custominput = ''
-let win
 
 let output_folder = path.join(process.cwd(), 'output')
 let config_path = path.join(process.cwd(), 'config.json')
 
-let debug = false
-let vcodec = "x264"
-let acodec = "opus"
-let prefix = "-mkvripa"
-let present = "ultrafast"
-let crf = "23"
-let threads = "auto"
+let win, custominput, vcodec, acodec, prefix, present, crf, threads
 
-let ffmpegloc = path.join(process.cwd(), 'bin/ffmpeg')
-if (os.platform().substring(0,3) == 'win') {
-    ffmpegloc = ffmpegloc + '.exe'
-}
+let ffmpegloc = () => (os.platform().substring(0,3) == 'win' ? path.join(process.cwd(), 'bin/ffmpeg.exe') : process.exit(1))
 
 function saveConfig() {
 	let config_array = [{
@@ -36,7 +25,7 @@ function saveConfig() {
 		'crf': crf,
 		'threads': threads
 	}]
-	fs.writeFileSync(config_path, JSON.stringify(config_array).split('[').join('').split(']').join(''));
+	fs.writeFileSync(config_path, JSON.stringify(config_array).split('[').join('').split(']').join(''))
 }
 
 function createWindow() {
@@ -50,50 +39,51 @@ function createWindow() {
 	win.setMenuBarVisibility(false)
 	win.loadFile('app/index.html')
 	
-	if (debug) {
-		win.openDevTools()
-	}
+	debug && win.openDevTools()
 	
 }
 
 function check_folder(fpath) {
 	if (fs.existsSync(fpath) && fs.lstatSync(fpath).isDirectory()) {
-		console.log('[+] Target output : ' + fpath)
+		debug && console.log('[+] Target output : ' + fpath)
 	} else {
-		console.log('[+] Making folder : ' + fpath)
+		debug && console.log('[+] Making folder : ' + fpath)
 		fs.mkdirSync(fpath, { recursive: true })
 	}
 }
 
 app.on('ready', createWindow)
 
-ipcMain.on('ondragstart',(event, res) => processVideo(res))
-ipcMain.on('setcustominput',(event, res) => custominput = res)
-ipcMain.on('setvideocodec',(event, res) => vcodec = res)
-ipcMain.on('setaudiocodec',(event, res) => acodec = res)
-ipcMain.on('setprefix',(event, res) => prefix = res)
-ipcMain.on('setpresent',(event, res) => present = res)
-ipcMain.on('setcrf',(event, res) => crf = res)
-ipcMain.on('setoutput',(event, res) => output_folder = res)
+ipcMain.on('onstart',(event, res) => {
+	if (res.length > 6) {
+		custominput = res[0]
+		vcodec = res[1]
+		acodec = res[2]
+		present = res[3]
+		prefix = res[4]
+		crf = res[5]
+		threads = res[6]
+		processVideo(res[7])
+	}
+})
 
 async function processVideo(array) {
 	saveConfig()
+	check_folder(output_folder)
 	for (const item of array) {
-		let escaped_path_output = item[1].split('\\').join('/')
+		let escaped_path_output = item[0].split('\\').join('/')
 		let output_escaped = path.basename(escaped_path_output)
-		output_escaped = item[1].slice(0, item[1].length - path.basename(item[1]).length) + output_escaped.split(path.extname(output_escaped)).join('')
-		let outputloc = output_folder + '\\' + item[2].split(path.extname(item[2])).join('') + prefix + '.mp4'
-		check_folder(output_folder)
+		output_escaped = item[0].slice(0, item[1].length - path.basename(item[0]).length) + output_escaped.split(path.extname(output_escaped)).join('')
+		let outputloc = output_folder + '\\' + item[1].split(path.extname(item[1])).join('') + prefix + '.mp4'
 		if (debug) {
 			console.log(item)
 			console.log('DEBUG : ' + outputloc)
 			console.log('DEBUG : ' + output_escaped)
 			console.log('Output Folder : ' + output_folder)
 		}
-		tempy = tempy + '"' + ffmpegloc + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[1] + '" ' + (custominput !== '' ?custominput : '') + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' -threads ' + threads + ' "' + outputloc + '"' + EOL
+		tempy = tempy + '"' + ffmpegloc() + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[0] + '" ' + (custominput !== '' ?custominput : '') + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' -threads ' + threads + ' "' + outputloc + '"' + os.EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
-		if (err) throw err;
 		const subprocess = child_process.spawn(path.join(process.cwd(), 'batch.bat'),[], {
 			detached: true
 		});
