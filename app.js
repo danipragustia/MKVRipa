@@ -82,8 +82,8 @@ async function processVideo(array) {
 		let escaped_path_output = item[1].split('\\').join('/')
 		let output_escaped = path.basename(escaped_path_output)
 		output_escaped = item[1].slice(0, item[1].length - path.basename(item[1]).length) + output_escaped.split(path.extname(output_escaped)).join('')
-		let outputloc = output_folder + '\\' + item[0] + '\\' + item[2].split(path.extname(item[2])).join('') + prefix + '.mp4'
-		check_folder(output_folder + '\\' + item[0])
+		let outputloc = output_folder + '\\' + item[2].split(path.extname(item[2])).join('') + prefix + '.mp4'
+		check_folder(output_folder)
 		if (debug) {
 			console.log(item)
 			console.log('DEBUG : ' + outputloc)
