@@ -19,7 +19,7 @@ Simply start `mkvripa.exe`
 ## Build from source
 Make sure package electron-packager was installed, if not you can run command `npm i -g electron-packager` to install it.
 
-1. Compile program `electron-packager .`
+1. Compile program by using `build.sh` script or run `electron-packager .`
 2. Donwnload [FFMPEG](https://ffmpeg.zeranoe.com/builds/) and copy it on compiled program directory `bin` folder (case-sensitive).
 
 ## License
