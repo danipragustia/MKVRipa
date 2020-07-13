@@ -12,7 +12,6 @@ Batch script is have some limitation, so for making this extensible. I making th
 ## To-do
 - [ ] Progress status
 - [ ] Watermark support
-- [ ] Output Folder
 
 ## How to use?
 Simply start `mkvripa.exe`
