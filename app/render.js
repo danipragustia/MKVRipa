@@ -99,13 +99,13 @@ $(document).on('dragover', (e) => {
 	$("#drag-drop").addClass('drag-over')
 })
 
-$(document).on('dragleave', (e) {
+$(document).on('dragleave', (e) => {
 	e.stopPropagation()
 	e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
 })
 
-$(document).on('drop', (e) {
+$(document).on('drop', (e) => {
     e.stopPropagation()
     e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
@@ -116,6 +116,10 @@ $(document).on('drop', (e) {
 			traverseFileTree(item)
 		}
 	}
+})
+
+ipcRenderer.on('send-log', (event, text) => {
+	$('#text-logs').val($('#text-logs').val() + text + '\r\n')
 })
 
 })

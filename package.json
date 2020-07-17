@@ -9,6 +9,7 @@
   "author": "Dani Pragustia",
   "license": "MIT",
   "dependencies": {
+    "electron": "^9.1.0",
     "jquery": "^3.5.1"
   }
 }

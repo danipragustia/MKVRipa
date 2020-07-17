@@ -7,6 +7,7 @@ const {app,BrowserWindow,ipcMain,dialog} = require('electron')
 
 let debug = (process.argv[2] == '--debug' ? true : false)
 let tempy = ''
+let pwnpid = ''
 
 let output_folder = path.join(process.cwd(), 'output')
 let config_path = path.join(process.cwd(), 'config.json')
@@ -84,10 +85,27 @@ async function processVideo(array) {
 		tempy = tempy + '"' + ffmpegloc() + '" -crf ' + crf + ' -preset ' + present + ' -i ' + '"' + item[0] + '" ' + (custominput !== '' ?custominput : '') + ' -y -filter_complex "subtitles=' + "'" + escaped_path_output.split(':/').join('\\:/') + "'" + '" ' + '-c:a lib' + acodec + ' -c:v lib' + vcodec + ' -threads ' + threads + ' "' + outputloc + '"' + os.EOL
 	}
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
-		const subprocess = child_process.spawn(path.join(process.cwd(), 'batch.bat'),[], {
-			detached: true
-		});
-		subprocess.unref();
-		process.exit();
+		let pwn = child_process.spawn(path.join(process.cwd(), 'batch.bat'))
+		pwnpid = pwn.pid
+		pwn.stdout.on('data', function (data) {
+			win.webContents.send('send-log', data.toString())
+			console.log('stdout: ' + data.toString())
+		})
+
+		pwn.stderr.on('data', function (data) {
+			win.webContents.send('send-log', data.toString())
+			console.log('stderr: ' + data.toString())
+		})
+
+		pwn.on('exit', function (code) {
+			win.webContents.send('send-log', data.toString())
+			console.log('child process exited with code ' + code.toString())
+		})
+		//process.exit();
 	})
 }
+
+
+process.on('exit', () =>{
+	(pwnpid !== '') && process.kill(pwnpid)
+})
