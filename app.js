@@ -87,17 +87,17 @@ async function processVideo(array) {
 	fs.writeFile(path.join(process.cwd(), 'batch.bat'), tempy, (err) => {
 		let pwn = child_process.spawn(path.join(process.cwd(), 'batch.bat'))
 		pwnpid = pwn.pid
-		pwn.stdout.on('data', function (data) {
+		pwn.stdout.on('data', (data) => {
 			win.webContents.send('send-log', data.toString())
 			console.log('stdout: ' + data.toString())
 		})
 
-		pwn.stderr.on('data', function (data) {
+		pwn.stderr.on('data', (data) => {
 			win.webContents.send('send-log', data.toString())
 			console.log('stderr: ' + data.toString())
 		})
 
-		pwn.on('exit', function (code) {
+		pwn.on('exit', (code) => {
 			win.webContents.send('send-log', data.toString())
 			console.log('child process exited with code ' + code.toString())
 		})
