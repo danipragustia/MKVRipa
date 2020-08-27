@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" href="app.css">
 	
-    <title>MKVRipa Desktop</title>
+    <title>MKVRipa</title>
   </head>
   <body>
     <div class="container-fluid mt-3 mb-3">
@@ -15,7 +15,6 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#files">Files</a></li>
 			<li><a data-toggle="tab" href="#config">Config</a></li>
-			<li><a data-toggle="tab" href="#logs">Logs</a></li>
 		</ul>
 			
 			<div class="tab-content">
@@ -68,7 +67,6 @@
 				
 				<div id="config" class="tab-pane fade row">
 				
-				
 					<div class="mt-3 col-md-12">
 					
 						<div class="form-group">
@@ -79,10 +77,24 @@
 					</div>
 				
 					<div class="col-md-12">
-					
+
+						<div class="form-group">
+						  <label class="font-weight-bold" for="custom-watermark">Watermark :</label>
+						  <div class="input-group">
+						    <input type="text" class="form-control" id="watermark-text" disabled>
+						    <div class="input-group-prepend">
+						      <label class="btn btn-primary">
+						        <input type="file" id="watermark-select" hidden>Browse</input>
+						      </label>
+						    </div>
+						  </div>
+						</div>
+
 						<div class="form-group">
 						  <label class="font-weight-bold" for="custom-input">Threads  :</label>
-						  <input type="text" class="form-control" id="threads-input" value="auto">
+						  <select class="custom-select" id="threads-select">
+						    <option value="auto" selected>auto</option>
+						  </select>
 						</div>
 						
 						<div class="form-group">
@@ -138,7 +150,7 @@
 									<span>Better Quality</span>
 								</div>
 								<div class="ml-auto">
-									<span>Better Size</span>
+									<span>Lower Size</span>
 								</div>
 						  </div>
 						  <input type="range" min="0" max="51" value="23" class="form-control-range" id="crf-range">
@@ -148,23 +160,6 @@
 
 					</div>	
 				
-				</div>
-				
-				<div id="logs" class="tab-pane fade row">
-			
-					<div class="col-lg-12 mt-3 mb-3">
-					
-						<button class="btn btn-block btn-danger" id="btnCleanLogs">Clear Logs</button>
-					
-					</div>
-					
-				
-					<div class="col-md-12">
-					
-						<textarea class="form-control text-logs" rows="24" id="text-logs"></textarea>
-					
-					</div>
-			
 				</div>
 			
 			</div>

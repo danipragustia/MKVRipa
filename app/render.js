@@ -1,7 +1,7 @@
 const {ipcRenderer} = require('electron')
 const path = require('path')
 const fs = require('fs')
-
+const os = require('os')
 let target_file = []
 
 if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
@@ -47,6 +47,13 @@ function removeItem(i) {
 $(() => {
 	
 $('#output-folder').val(path.join(process.cwd(), 'output'))
+
+
+console.log(os.cpus())
+
+for(let i = 0;i < os.cpus().length;i++) {
+	$('#threads-select').append('<option></option>'.val(i).html(i)
+}
 
 $("#folder-select").on("input", (e) => {
 	let theFiles = e.target.files
@@ -99,13 +106,13 @@ $(document).on('dragover', (e) => {
 	$("#drag-drop").addClass('drag-over')
 })
 
-$(document).on('dragleave', (e) => {
+$(document).on('dragleave', (e) {
 	e.stopPropagation()
 	e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
 })
 
-$(document).on('drop', (e) => {
+$(document).on('drop', (e) {
     e.stopPropagation()
     e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
@@ -116,10 +123,6 @@ $(document).on('drop', (e) => {
 			traverseFileTree(item)
 		}
 	}
-})
-
-ipcRenderer.on('send-log', (event, text) => {
-	$('#text-logs').val($('#text-logs').val() + text + '\r\n')
 })
 
 })
