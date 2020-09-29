@@ -1,8 +1,12 @@
-const {ipcRenderer} = require('electron')
+const {ipcRenderer, ipcMain, webContents} = require('electron')
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
 let target_file = []
+
+ipcMain.on('send-log', (e, log) => {
+    $("#logs-text").val($("#logs-text").val() + '\n' + log)
+})
 
 if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
 	let config = require(path.join(process.cwd(), 'config.json'))
@@ -47,9 +51,6 @@ function removeItem(i) {
 $(() => {
 	
 $('#output-folder').val(path.join(process.cwd(), 'output'))
-
-
-console.log(os.cpus())
 
 for(let i = 0;i < os.cpus().length;i++) {
     $('#threads-select').append('<option value="' + (i + 1) + '">' + (i + 1) + '</option>')
