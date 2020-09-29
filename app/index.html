@@ -1,205 +1,205 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" href="app.css">
 	
-    <title>MKVRipa</title>
-  </head>
-  <body>
-    <div class="container-fluid mt-3 mb-3">
-	
-		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#files">Files</a></li>
-			<li><a data-toggle="tab" href="#config">Config</a></li>
-			<li><a data-toggle="tab" href="#logs">Logs</a></li>
-		</ul>
+	<title>MKVRipa</title>
+    </head>
+    <body>
+	<div class="container-fluid mt-3 mb-3">
+	    
+	    <ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#files">Files</a></li>
+		<li><a data-toggle="tab" href="#config">Config</a></li>
+		<li><a data-toggle="tab" href="#logs">Logs</a></li>
+	    </ul>
+	    
+	    <div class="tab-content">
+		
+		<div id="files" class="tab-pane fade row active show">
+		    
+		    <div class="col-lg-12">
 			
-			<div class="tab-content">
-				
-				<div id="files" class="tab-pane fade row active show">
-				
-					<div class="col-lg-12">
-					
-						<div class="form-group text-center mb-3 p-5" id="drag-drop">
-							<svg class="bi bi-folder" width="5em" height="5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
-								<path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
-							</svg>
-							<p>Drop your folder(s) here</p>
-							<label class="btn btn-lg btn-primary">
-								<input type="file" id="folder-select" webkitdirectory hidden>Select Folder</button>
-							</label>
-						</div>
-					
-					</div>
-					
-					<div class="col-md-12 mb-3">
-					
-						<label class="font-weight-bold" for="crf-range">Output :</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="output-folder" disabled>
-							<div class="input-group-prepend">
-								<label class="btn btn-primary">
-									<input type="file" id="output-select" webkitdirectory hidden>Browse</button>
-								</label>
-							</div>
-						</div>
-						
-					</div>
-					
-					<hr>
-					
-					<div class="col-lg-12">
-				
-						<label class="font-weight-bold" for="table-files">Quene Items : </label>
-						<table class="table table-bordered table-hovered" id="table-files">
-						</table>
-						
-						<button class="btn btn-block btn-primary" id="btnRender">Render</button>
-						<button class="btn btn-block btn-danger" id="btnClean">Clear quene</button>
-					
-					</div>
-					
-				</div>
-				
-				<div id="config" class="tab-pane fade row">
-
-				    <div class="mt-3 col-md-12">
-					
-					<div class="form-check">
-					    <input class="form-check-input" type="checkbox" id="ignore-check" name="ignore-check">
-					    <label class="form-check-label" for="ignore-check">
-						Only render without hardsub
-					    </label>
-					</div>
-
-				    </div>
-									
-					<div class="mt-3 col-md-12">
-					
-						<div class="form-group">
-						  <label class="font-weight-bold" for="custom-input">Input Custom Arguments  :</label>
-						  <input type="text" class="form-control" id="custom-input" value="">
-						</div>
-					
-					</div>
-				
-					<div class="col-md-12">
-
-						<div class="form-group">
-						  <label class="font-weight-bold" for="custom-watermark">Watermark :</label>
-						  <div class="input-group">
-						    <input type="text" class="form-control" id="watermark-text" disabled>
-						    <div class="input-group-prepend">
-							<label class="btn btn-primary">
-						            <input type="file" id="watermark-select" hidden>Browse</input>
-							</label>
-						    </div>
-						  </div>
-						</div>
-
-						<div class="form-group">
-						    <label class="font-weight-bold" for="water-position-select">Watermark Position :</label>
-						    <select class="custom-select" id="watermark-position-select" name="watermark-position-select">
-							<option value="1" selected>Top Right</option>
-							<option value="2">Bottom Left</option>
-							<option value="3">Buttom Right</option>
-							<option value="4">Top Right</option>
-						    </select>
-						</div>
-
-
-						<div class="form-group">
-						  <label class="font-weight-bold" for="custom-input">Threads  :</label>
-						  <select class="custom-select" id="threads-select" name="threads-select">
-						    <option value="auto" selected>auto</option>
-						  </select>
-						</div>
-						
-						<div class="form-group">
-						  <label class="font-weight-bold" for="crf-range">Video Codec :</label>
-							<select class="custom-select" id="video-select">
-							  <option value="x264" selected>H.264 / x264</option>
-							  <option value="x265">H.265 / x265</option>
-							  <option value="xvid">Xvid / MPEG-4</option>
-							</select>
-						</div>
-						
-						<div class="form-group">
-						  <label class="font-weight-bold" for="crf-range">Audio Codec :</label>
-							<select class="custom-select" id="audio-select">
-							  <option value="opus" selected>opus</option>
-							  <option value="mp3lame">mp3lame</option>
-							</select>
-						</div>
-				
-					</div>
-					
-					<div class="col-md-12">
-						
-						<div class="form-group">
-						  <label class="font-weight-bold" for="crf-range">Presents :</label>
-							<select class="custom-select" id="present-select">
-							  <option value="ultrafast" selected>Ultra Fast</option>
-							  <option value="superfast">Super Fast</option>
-							  <option value="veryfast">Very Fast</option>
-							  <option value="faster">Faster</option>
-							  <option value="fast">Fast</option>
-							  <option value="medium">Medium</option>
-							  <option value="slow">Slow</option>
-							  <option value="slower">Slower</option>
-							  <option value="veryslow">Very Slow</option>
-							  <option value="placebo">Placebo</option>
-							</select>
-						</div>
-						
-						<div class="form-group">
-						  <label class="font-weight-bold" for="crf-range">Prefix  :</label>
-						  <input type="text" class="form-control" id="prefix-input" value="-mkvripa">
-						</div>
-					
-					</div>
-					
-					<div class="col-md-12">
-					
-						<div class="form-group">
-						  <label class="font-weight-bold" for="crf-range">CRF (Constant Rate Factor)  :</label>
-						  <div class="d-flex">
-								<div>
-									<span>Better Quality</span>
-								</div>
-								<div class="ml-auto">
-									<span>Lower Size</span>
-								</div>
-						  </div>
-						  <input type="range" min="0" max="51" value="23" class="form-control-range" id="crf-range">
-						  <p class="text-center" id="label-crf">23</p>
-						</div>
-						
-
-					</div>	
-				
-				</div>
-
-				<div id="logs" class="tab-pane fade row">
-
-				    <div class="mt-3 col-md-12">
-
-					<textarea id="logs-text" name="logs-text" class="form-control" rows="30">
-					
-				    </div>
-				    
-				</div>
-				    
+			<div class="form-group text-center mb-3 p-5" id="drag-drop">
+			    <svg class="bi bi-folder" width="5em" height="5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
+				<path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
+			    </svg>
+			    <p>Drop your folder(s) here</p>
+			    <label class="btn btn-lg btn-primary">
+				<input type="file" id="folder-select" webkitdirectory hidden>Select Folder</button>
+			    </label>
 			</div>
+			
+		    </div>
+		    
+		    <div class="col-md-12 mb-3">
+			
+			<label class="font-weight-bold" for="crf-range">Output :</label>
+			<div class="input-group">
+			    <input type="text" class="form-control" id="output-folder" disabled>
+			    <div class="input-group-prepend">
+				<label class="btn btn-primary">
+				    <input type="file" id="output-select" webkitdirectory hidden>Browse</button>
+				</label>
+			    </div>
+			</div>
+			
+		    </div>
+		    
+		    <hr>
+		    
+		    <div class="col-lg-12">
+			
+			<label class="font-weight-bold" for="table-files">Quene Items : </label>
+			<table class="table table-bordered table-hovered" id="table-files">
+			</table>
+			
+			<button class="btn btn-block btn-primary" id="btnRender">Render</button>
+			<button class="btn btn-block btn-danger" id="btnClean">Clear quene</button>
+			
+		    </div>
+		    
+		</div>
 		
-		<script>window.jQuery = window.$ = require('jquery');</script>
-		<script src="bootstrap.min.js"></script>
-		<script src="render.js"></script>
+		<div id="config" class="tab-pane fade row">
+
+		    <div class="mt-3 col-md-12">
+			
+			<div class="form-check">
+			    <input class="form-check-input" type="checkbox" id="ignore-check" name="ignore-check">
+			    <label class="form-check-label" for="ignore-check">
+				Only render without hardsub
+			    </label>
+			</div>
+
+		    </div>
+		    
+		    <div class="mt-3 col-md-12">
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="custom-input">Input Custom Arguments  :</label>
+			    <input type="text" class="form-control" id="custom-input" value="">
+			</div>
+			
+		    </div>
+		    
+		    <div class="col-md-12">
+
+			<div class="form-group">
+			    <label class="font-weight-bold" for="custom-watermark">Watermark :</label>
+			    <div class="input-group">
+				<input type="text" class="form-control" id="watermark-text" disabled>
+				<div class="input-group-prepend">
+				    <label class="btn btn-primary">
+					<input type="file" id="watermark-select" hidden>Browse</input>
+				    </label>
+				</div>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="font-weight-bold" for="water-position-select">Watermark Position :</label>
+			    <select class="custom-select" id="watermark-position-select" name="watermark-position-select">
+				<option value="1" selected>Top Right</option>
+				<option value="2">Bottom Left</option>
+				<option value="3">Buttom Right</option>
+				<option value="4">Top Right</option>
+			    </select>
+			</div>
+
+
+			<div class="form-group">
+			    <label class="font-weight-bold" for="custom-input">Threads  :</label>
+			    <select class="custom-select" id="threads-select" name="threads-select">
+				<option value="auto" selected>auto</option>
+			    </select>
+			</div>
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="crf-range">Video Codec :</label>
+			    <select class="custom-select" id="video-select">
+				<option value="x264" selected>H.264 / x264</option>
+				<option value="x265">H.265 / x265</option>
+				<option value="xvid">Xvid / MPEG-4</option>
+			    </select>
+			</div>
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="crf-range">Audio Codec :</label>
+			    <select class="custom-select" id="audio-select">
+				<option value="opus" selected>opus</option>
+				<option value="mp3lame">mp3lame</option>
+			    </select>
+			</div>
+			
+		    </div>
+		    
+		    <div class="col-md-12">
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="crf-range">Presents :</label>
+			    <select class="custom-select" id="present-select">
+				<option value="ultrafast" selected>Ultra Fast</option>
+				<option value="superfast">Super Fast</option>
+				<option value="veryfast">Very Fast</option>
+				<option value="faster">Faster</option>
+				<option value="fast">Fast</option>
+				<option value="medium">Medium</option>
+				<option value="slow">Slow</option>
+				<option value="slower">Slower</option>
+				<option value="veryslow">Very Slow</option>
+				<option value="placebo">Placebo</option>
+			    </select>
+			</div>
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="crf-range">Prefix  :</label>
+			    <input type="text" class="form-control" id="prefix-input" value="-mkvripa">
+			</div>
+			
+		    </div>
+		    
+		    <div class="col-md-12">
+			
+			<div class="form-group">
+			    <label class="font-weight-bold" for="crf-range">CRF (Constant Rate Factor)  :</label>
+			    <div class="d-flex">
+				<div>
+				    <span>Better Quality</span>
+				</div>
+				<div class="ml-auto">
+				    <span>Lower Size</span>
+				</div>
+			    </div>
+			    <input type="range" min="0" max="51" value="23" class="form-control-range" id="crf-range">
+			    <p class="text-center" id="label-crf">23</p>
+			</div>
+			
+
+		    </div>	
+		    
+		</div>
+
+		<div id="logs" class="tab-pane fade row">
+
+		    <div class="mt-3 col-md-12">
+
+			<textarea id="logs-text" name="logs-text" class="form-control" rows="30">
+					
+		    </div>
+				    
+		</div>
+				    
+	    </div>
 		
-  </body>
+	    <script>window.jQuery = window.$ = require('jquery');</script>
+	    <script src="bootstrap.min.js"></script>
+	    <script src="render.js"></script>
+		
+    </body>
 </html>
