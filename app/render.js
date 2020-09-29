@@ -52,7 +52,7 @@ $('#output-folder').val(path.join(process.cwd(), 'output'))
 console.log(os.cpus())
 
 for(let i = 0;i < os.cpus().length;i++) {
-	$('#threads-select').append('<option></option>'.val(i).html(i)
+    $('#threads-select').append('<option value="' + (i + 1) + '">' + (i + 1) + '</option>')
 }
 
 $("#folder-select").on("input", (e) => {
@@ -84,14 +84,15 @@ $("#btnRender").click(() => {
 	$("#btnRender").prop("disabled",true)
 	$("#btnClean").prop("disabled",true)
 	ipcRenderer.send('onstart', [
-		$("#custom-input").val(),
-		$("#video-select").val(),
-		$("#audio-select").val(),
-		$("#present-select").val(),
-		$("#prefix-input").val(),
-		$("#crf-range").val(),
-		$("#threads-input").val(),
-		target_file
+	    $("#custom-input").val(),
+	    $("#video-select").val(),
+	    $("#audio-select").val(),
+	    $("#present-select").val(),
+	    $("#prefix-input").val(),
+	    $("#crf-range").val(),
+	    $("#threads-select").val(),
+	    $("#ignore-check").val(),
+	    target_file
 	])
 })
 
@@ -106,13 +107,13 @@ $(document).on('dragover', (e) => {
 	$("#drag-drop").addClass('drag-over')
 })
 
-$(document).on('dragleave', (e) {
+$(document).on('dragleave', (e) => {
 	e.stopPropagation()
 	e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
 })
 
-$(document).on('drop', (e) {
+$(document).on('drop', (e) => {
     e.stopPropagation()
     e.preventDefault()
 	$("#drag-drop").removeClass('drag-over')
