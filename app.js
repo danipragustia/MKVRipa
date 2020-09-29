@@ -6,6 +6,7 @@ const child_process = require('child_process')
 const {app,BrowserWindow,ipcMain,dialog} = require('electron')
 
 let debug = (process.argv[2] == '--debug' ? true : false)
+debug = true
 let tempy = ''
 let pwnpid = ''
 
