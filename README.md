@@ -1,3 +1,5 @@
+> This program is no maintained anymore, for anyone want modified can clone it.
+
 # MKVRipa
 
 ![MKVRipa Logo](https://raw.githubusercontent.com/danipragustia/MKVRipa/master/banner.png)
